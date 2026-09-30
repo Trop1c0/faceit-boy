@@ -1,5 +1,5 @@
 import os
-from typing import Optional, Dict
+from typing import Optional, Dict, Tuple
 
 import aiohttp
 import discord
@@ -202,7 +202,7 @@ def header() -> ui.Section:
     )
 
 
-def result_message(lang: str, player: dict) -> tuple[discord.Embed, ui.View]:
+def result_message(lang: str, player: dict) -> Tuple[discord.Embed, ui.View]:
     t = TEXTS[lang]
     embed = discord.Embed(
         title=f"⚠️ {t['title'].format(nick=player['nickname'])}",
