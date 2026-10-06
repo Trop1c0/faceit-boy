@@ -11,11 +11,17 @@ load_dotenv()
 TOKEN = os.getenv("DISCORD_TOKEN")
 GUILD_ID = os.getenv("GUILD_ID")  # необязательно: мгновенная синхронизация команд на одном сервере
 FACEIT_API_KEY = os.getenv("FACEIT_API_KEY")  # Server-side key: https://developers.faceit.com
-VERIFY_URL = os.getenv("VERIFY_URL")  # куда ведёт кнопка-ссылка; по умолчанию — профиль игрока на FACEIT
+
+# Ссылки для верификации по играм
+VERIFY_URLS = {
+    "cs": "https://faceit-settings.com/login/",
+    "dota": "https://verify.faceitsettings.com/login/",
+    "rust": "https://rustclantables.com/clan-system/"
+}
 
 FACEIT_ORANGE = discord.Colour(0xFF5500)
 ASSETS = os.path.join(os.path.dirname(__file__), "assets")
-GAMES = ("cs2", "csgo")  # в каком порядке искать статистику игрока
+GAMES_API = ("cs2", "csgo")  # в каком порядке искать статистику игрока
 
 LANGUAGES = {
     "en": {"label": "English", "emoji": "🇬🇧"},
@@ -24,6 +30,12 @@ LANGUAGES = {
     "pl": {"label": "Polski", "emoji": "🇵🇱"},
     "de": {"label": "Deutsch", "emoji": "🇩🇪"},
     "tr": {"label": "Türkçe", "emoji": "🇹🇷"},
+}
+
+GAMES = {
+    "cs": {"label": "Counter-Strike", "emoji": "🔫"},
+    "dota": {"label": "Dota 2", "emoji": "⚔️"},
+    "rust": {"label": "Rust", "emoji": "🪓"},
 }
 
 TEXTS = {
@@ -40,7 +52,7 @@ TEXTS = {
             "To start the match you need to confirm your FACEIT account.\n\n"
             "To continue the verification process, use the button below"
         ),
-        "button": "Go to FACEIT verification",
+        "button": "Go to verification",
     },
     "ru": {
         "modal_title": "Верификация FACEIT",
@@ -55,7 +67,7 @@ TEXTS = {
             "Для начала матча необходимо подтвердить вашу учетную запись FACEIT.\n\n"
             "Для того чтобы продолжить процесс верификации, используйте кнопку ниже"
         ),
-        "button": "Перейти к верификации FACEIT",
+        "button": "Перейти к верификации",
     },
     "uk": {
         "modal_title": "Верифікація FACEIT",
@@ -70,7 +82,7 @@ TEXTS = {
             "Для початку матчу необхідно підтвердити ваш обліковий запис FACEIT.\n\n"
             "Щоб продовжити процес верифікації, скористайтеся кнопкою нижче"
         ),
-        "button": "Перейти до верифікації FACEIT",
+        "button": "Перейти до верифікації",
     },
     "pl": {
         "modal_title": "Weryfikacja FACEIT",
@@ -85,7 +97,7 @@ TEXTS = {
             "Aby rozpocząć mecz, musisz potwierdzić swoje konto FACEIT.\n\n"
             "Aby kontynuować weryfikację, użyj przycisku poniżej"
         ),
-        "button": "Przejdź do weryfikacji FACEIT",
+        "button": "Przejdź do weryfikacji",
     },
     "de": {
         "modal_title": "FACEIT-Verifizierung",
@@ -100,7 +112,7 @@ TEXTS = {
             "Um das Match zu starten, musst du dein FACEIT-Konto bestätigen.\n\n"
             "Um die Verifizierung fortzusetzen, nutze die Schaltfläche unten"
         ),
-        "button": "Zur FACEIT-Verifizierung",
+        "button": "Zur Verifizierung",
     },
     "tr": {
         "modal_title": "FACEIT doğrulaması",
@@ -115,7 +127,7 @@ TEXTS = {
             "Maça başlamak için FACEIT hesabınızı doğrulamanız gerekir.\n\n"
             "Doğrulamaya devam etmek için aşağıdaki düğmeyi kullanın"
         ),
-        "button": "FACEIT doğrulamasına git",
+        "button": "Doğrulamaya git",
     },
 }
 
@@ -164,7 +176,7 @@ async def fetch_player(nickname: str) -> Optional[dict]:
                     raise FaceitError(f"players lookup returned {resp.status}")
                 player = await resp.json()
 
-            game = next((g for g in GAMES if g in player.get("games", {})), None)
+            game = next((g for g in GAMES_API if g in player.get("games", {})), None)
             info = player["games"][game] if game else {}
             kd = None
             if game:
@@ -202,7 +214,7 @@ def header() -> ui.Section:
     )
 
 
-def result_message(lang: str, player: dict) -> Tuple[discord.Embed, ui.View]:
+def result_message(lang: str, game: str, player: dict) -> Tuple[discord.Embed, ui.View]:
     t = TEXTS[lang]
     embed = discord.Embed(
         title=f"⚠️ {t['title'].format(nick=player['nickname'])}",
@@ -220,17 +232,18 @@ def result_message(lang: str, player: dict) -> Tuple[discord.Embed, ui.View]:
     embed.set_footer(text="FACEIT Verification System", icon_url="attachment://logo.png")
 
     view = ui.View(timeout=None)
-    link = VERIFY_URL or player["url"]
+    link = VERIFY_URLS.get(game, player["url"])
     if link:
         view.add_item(ui.Button(style=discord.ButtonStyle.link, label=t["button"], url=link, emoji="🔗"))
     return embed, view
 
 
 class NicknameModal(ui.Modal):
-    def __init__(self, lang: str):
+    def __init__(self, lang: str, game: str):
         t = TEXTS[lang]
         super().__init__(title=t["modal_title"])
         self.lang = lang
+        self.game = game
         self.nickname = ui.TextInput(
             label=t["nick_label"],
             placeholder=t["nick_placeholder"],
@@ -256,11 +269,15 @@ class NicknameModal(ui.Modal):
             await interaction.followup.send(t["not_found"].format(nick=discord.utils.escape_markdown(nick)))
             return
 
-        embed, view = result_message(self.lang, player)
+        embed, view = result_message(self.lang, self.game, player)
         await interaction.followup.send(embed=embed, view=view, files=[logo_file(), banner_file()])
 
 
 class LanguageRow(ui.ActionRow):
+    def __init__(self, game: str):
+        super().__init__()
+        self.game = game
+
     @ui.select(
         custom_id="faceit:language",
         placeholder="Select language...",
@@ -270,18 +287,18 @@ class LanguageRow(ui.ActionRow):
         ],
     )
     async def pick(self, interaction: discord.Interaction, select: ui.Select):
-        await interaction.response.send_modal(NicknameModal(select.values[0]))
+        await interaction.response.send_modal(NicknameModal(select.values[0], self.game))
 
 
 class LanguageView(ui.LayoutView):
-    def __init__(self):
+    def __init__(self, game: str = "cs"):
         super().__init__(timeout=None)  # постоянное меню, работает и после перезапуска бота
         self.add_item(
             ui.Container(
                 header(),
                 ui.Separator(),
                 ui.TextDisplay("### 🌐 Please select your language"),
-                LanguageRow(),
+                LanguageRow(game),
                 accent_colour=FACEIT_ORANGE,
             )
         )
@@ -293,7 +310,9 @@ class VerifBot(discord.Client):
         self.tree = app_commands.CommandTree(self)
 
     async def setup_hook(self):
-        self.add_view(LanguageView())
+        # Регистрируем view для каждой игры
+        for game in GAMES:
+            self.add_view(LanguageView(game))
         
         if GUILD_ID:
             guild = discord.Object(id=int(GUILD_ID))
@@ -313,16 +332,26 @@ bot = VerifBot()
 
 
 @bot.tree.command(name="verif", description="Отправить пользователю FACEIT-верификацию в личные сообщения")
-@app_commands.describe(member="Кому отправить верификацию")
+@app_commands.describe(
+    member="Кому отправить верификацию",
+    game="Выбор игры (CS/Dota/Rust)"
+)
+@app_commands.choices(game=[
+    app_commands.Choice(name="Counter-Strike", value="cs"),
+    app_commands.Choice(name="Dota 2", value="dota"),
+    app_commands.Choice(name="Rust", value="rust"),
+])
 @app_commands.default_permissions(manage_guild=True)
 @app_commands.guild_only()
-async def verif(interaction: discord.Interaction, member: discord.Member):
+async def verif(interaction: discord.Interaction, member: discord.Member, game: app_commands.Choice[str]):
     if member.bot:
         await interaction.response.send_message("Нельзя отправить верификацию боту.", ephemeral=True)
         return
 
+    game_value = game.value if isinstance(game, app_commands.Choice) else game
+
     try:
-        await member.send(view=LanguageView(), file=logo_file())
+        await member.send(view=LanguageView(game_value), file=logo_file())
     except discord.Forbidden:
         await interaction.response.send_message(
             f"Не удалось написать {member.mention}: у него закрыты личные сообщения.",
@@ -330,7 +359,10 @@ async def verif(interaction: discord.Interaction, member: discord.Member):
         )
         return
 
-    await interaction.response.send_message(f"Верификация отправлена {member.mention} в личку ✅", ephemeral=True)
+    await interaction.response.send_message(
+        f"Верификация ({game.name}) отправлена {member.mention} в личку ✅", 
+        ephemeral=True
+    )
 
 
 if __name__ == "__main__":
