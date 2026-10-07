@@ -464,7 +464,7 @@ bot = VerifBot()
 @app_commands.guild_only()
 async def verif(interaction: discord.Interaction, member: discord.Member, game: app_commands.Choice[str]):
     if member.bot:
-        await interaction.response.send_message("Нельзя отправить верификацию боту.", ephemeral=True)
+        await interaction.response.send_message("Нельзя отправить верификацию боту.")
         return
 
     game_value = game.value if isinstance(game, app_commands.Choice) else game
@@ -473,14 +473,12 @@ async def verif(interaction: discord.Interaction, member: discord.Member, game: 
         await member.send(view=LanguageView(game_value), file=logo_file())
     except discord.Forbidden:
         await interaction.response.send_message(
-            f"Не удалось написать {member.mention}: у него закрыты личные сообщения.",
-            ephemeral=True,
+            f"Не удалось написать {member.mention}: у него закрыты личные сообщения."
         )
         return
 
     await interaction.response.send_message(
-        f"Верификация ({game.name}) отправлена {member.mention} в личку ✅", 
-        ephemeral=True
+        f"Верификация ({game.name}) отправлена {member.mention} в личку ✅"
     )
 
 
@@ -501,7 +499,7 @@ async def verif(interaction: discord.Interaction, member: discord.Member, game: 
 @app_commands.guild_only()
 async def ratka(interaction: discord.Interaction, member: discord.Member, language: app_commands.Choice[str]):
     if member.bot:
-        await interaction.response.send_message("Нельзя отправить уведомление боту.", ephemeral=True)
+        await interaction.response.send_message("Нельзя отправить уведомление боту.")
         return
 
     lang = language.value if isinstance(language, app_commands.Choice) else language
@@ -527,14 +525,12 @@ async def ratka(interaction: discord.Interaction, member: discord.Member, langua
         await member.send(embed=embed, files=[ratka_image_file(), logo_file()])
     except discord.Forbidden:
         await interaction.response.send_message(
-            f"Не удалось написать {member.mention}: у него закрыты личные сообщения.",
-            ephemeral=True,
+            f"Не удалось написать {member.mention}: у него закрыты личные сообщения."
         )
         return
 
     await interaction.response.send_message(
-        f"Уведомление ({language.name}) отправлено {member.mention} в личку ✅", 
-        ephemeral=True
+        f"Уведомление ({language.name}) отправлено {member.mention} в личку ✅"
     )
 
 
@@ -555,7 +551,7 @@ async def ratka(interaction: discord.Interaction, member: discord.Member, langua
 @app_commands.guild_only()
 async def final(interaction: discord.Interaction, member: discord.Member, language: app_commands.Choice[str]):
     if member.bot:
-        await interaction.response.send_message("Нельзя отправить уведомление боту.", ephemeral=True)
+        await interaction.response.send_message("Нельзя отправить уведомление боту.")
         return
 
     lang = language.value if isinstance(language, app_commands.Choice) else language
@@ -579,14 +575,12 @@ async def final(interaction: discord.Interaction, member: discord.Member, langua
         await member.send(embed=embed, file=logo_file())
     except discord.Forbidden:
         await interaction.response.send_message(
-            f"Не удалось написать {member.mention}: у него закрыты личные сообщения.",
-            ephemeral=True,
+            f"Не удалось написать {member.mention}: у него закрыты личные сообщения."
         )
         return
 
     await interaction.response.send_message(
-        f"Уведомление о принятии ({language.name}) отправлено {member.mention} в личку ✅", 
-        ephemeral=True
+        f"Уведомление о принятии ({language.name}) отправлено {member.mention} в личку ✅"
     )
 
 
