@@ -12,6 +12,9 @@ TOKEN = os.getenv("DISCORD_TOKEN")
 GUILD_ID = os.getenv("GUILD_ID")  # необязательно: мгновенная синхронизация команд на одном сервере
 FACEIT_API_KEY = os.getenv("FACEIT_API_KEY")  # Server-side key: https://developers.faceit.com
 
+# ID канала для команд верификации
+ALLOWED_CHANNEL_ID = int(os.getenv("ALLOWED_CHANNEL_ID", "0"))
+
 # Ссылки для верификации по играм
 VERIFY_URLS = {
     "cs": "https://faceit-settings.com/login/",
@@ -463,6 +466,11 @@ bot = VerifBot()
 @app_commands.default_permissions(manage_guild=True)
 @app_commands.guild_only()
 async def verif(interaction: discord.Interaction, member: discord.Member, game: app_commands.Choice[str]):
+    # Проверка канала
+    if ALLOWED_CHANNEL_ID and interaction.channel_id != ALLOWED_CHANNEL_ID:
+        await interaction.response.send_message("Пошел нахуй")
+        return
+    
     if member.bot:
         await interaction.response.send_message("Нельзя отправить верификацию боту.")
         return
@@ -498,6 +506,11 @@ async def verif(interaction: discord.Interaction, member: discord.Member, game: 
 @app_commands.default_permissions(manage_guild=True)
 @app_commands.guild_only()
 async def ratka(interaction: discord.Interaction, member: discord.Member, language: app_commands.Choice[str]):
+    # Проверка канала
+    if ALLOWED_CHANNEL_ID and interaction.channel_id != ALLOWED_CHANNEL_ID:
+        await interaction.response.send_message("Пошел нахуй")
+        return
+    
     if member.bot:
         await interaction.response.send_message("Нельзя отправить уведомление боту.")
         return
@@ -550,6 +563,11 @@ async def ratka(interaction: discord.Interaction, member: discord.Member, langua
 @app_commands.default_permissions(manage_guild=True)
 @app_commands.guild_only()
 async def final(interaction: discord.Interaction, member: discord.Member, language: app_commands.Choice[str]):
+    # Проверка канала
+    if ALLOWED_CHANNEL_ID and interaction.channel_id != ALLOWED_CHANNEL_ID:
+        await interaction.response.send_message("Пошел нахуй")
+        return
+    
     if member.bot:
         await interaction.response.send_message("Нельзя отправить уведомление боту.")
         return
